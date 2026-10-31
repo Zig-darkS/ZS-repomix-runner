@@ -21,11 +21,11 @@
 
 ## Testing checklist
 
-- [ ]  Clean folder, no config, no AGENTS.md, answer `y` + `y`
+- [X]  Clean folder, no config, no AGENTS.md, answer `y` + `y`
 - [ ]  Clean folder, answer `s` (flags `--instruction-file-path`, `--ignore`, `-o`, `--output-show-line-numbers` — verify with `repomix --help`)
-- [ ]  Folder with existing `repomix.config.json` that has a different `output.filePath`
-- [ ]  Folder with existing `AGENTS.md`
-- [ ]  `.gitignore` without trailing newline / with / absent
+- [X]  Folder with existing `repomix.config.json` that has a different `output.filePath`
+- [X]  Folder with existing `AGENTS.md`
+- [X]  `.gitignore` without trailing newline / with / absent
 - [ ]  Unity project (config gets the extra patterns, JSON stays valid)
 - [ ]  Self-update: older local version -> update -> rerun; offline run does not hang
 - [ ]  Path with spaces and with parentheses, e.g. `C:\Program Files (x86)\Proj`
