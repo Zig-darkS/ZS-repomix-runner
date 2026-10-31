@@ -1,0 +1,36 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches RUNNER_VERSION
+        run: |
+          V=$(grep -m1 '^set RUNNER_VERSION=' _run-repomix.bat | tr -d '\r' | cut -d= -f2)
+          [ "v$V" = "${GITHUB_REF_NAME}" ] || { echo "Tag ${GITHUB_REF_NAME} != RUNNER_VERSION v$V"; exit 1; }
+
+      - name: Minify release asset
+        run: |
+          mkdir -p dist
+          python3 .github/scripts/minify_bat.py _run-repomix.bat dist/_run-repomix.bat
+
+      - name: Sanity check minified asset
+        run: |
+          set -e
+          test "$(head -n1 dist/_run-repomix.bat | tr -d '\r')" = "@echo off"
+          grep -q '^set RUNNER_VERSION=' dist/_run-repomix.bat
+          grep -q '^:SUCCESS'            dist/_run-repomix.bat
+          grep -q '^:ASK'                dist/_run-repomix.bat
+          echo "lines: $(wc -l < dist/_run-repomix.bat)"
+          echo "bytes: $(wc -c < dist/_run-repomix.bat)"
+
+      - name: Publish release
+        run: gh release create "$GITHUB_REF_NAME" dist/_run-repomix.bat --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -17,6 +17,7 @@
     "useGitignore": true,
     "useDefaultPatterns": true,
     "customPatterns": [
+      "**/AGENTS.md",
       "**/_repomix-output.xml",
       "**/.env",
       "**/.env.*",
