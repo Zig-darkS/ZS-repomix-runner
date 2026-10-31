@@ -1,23 +1,25 @@
 {
   "$schema": "https://repomix.com/schemas/latest/schema.json",
   "include": [
-    "src/**",
     "**/*"
   ],
   "output": {
-    "filePath": "repomix-output.xml",
+    "filePath": "_repomix-output.xml",
     "style": "xml",
     "compress": false,
     "removeComments": false,
     "showLineNumbers": true,
-    "copyToClipboard": true,
+    "copyToClipboard": false,
     "topFilesLength": 15,
-    "instructionFilePath": "repomix-instruction.md"
+    "instructionFilePath": "AGENTS.md"
   },
   "ignore": {
     "useGitignore": true,
     "useDefaultPatterns": true,
     "customPatterns": [
+      "**/_repomix-output.xml",
+      "**/.env",
+      "**/.env.*",
       "**/.git/**",
       "**/node_modules/**",
       "**/bin/**",
